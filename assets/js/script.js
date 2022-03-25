@@ -3,8 +3,6 @@ var lowerCaseLet = "abcdefghijklmnopqrstuvwxyz".split("");
 var upperCaseLet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 var num = "123456789".split("");
 var specialChar = "!@#$%^&*()".split("");
-var customArray = [];
-var customPassword = [];
 
 // function used to randomly select an index from an array
 function randomValue(array) {
@@ -13,8 +11,12 @@ function randomValue(array) {
 }
 
 function generatePassword() {
-  var passwordLength = prompt("How many characters would you like your password to be? \nPlease choose a number between 8 and 128.")
+  // Two custom arrays that clear each time the function is called.
+  // One for the user's type selections, the other for the randomly selected characters.
+  var chosenCharTypes = [];
+  var customPassword = [];
 
+  var passwordLength = prompt("How many characters would you like your password to be? \nPlease choose a number between 8 and 128.");
   // Checks for appropriate and stores in passwordLength variable
   if (!passwordLength) {
     alert("Hmm... If you don't want a password then why did you come here?");
@@ -35,21 +37,21 @@ function generatePassword() {
     generatePassword();
   };
   if (confirmLower) {
-    customArray = customArray.concat(lowerCaseLet);
+    chosenCharTypes = chosenCharTypes.concat(lowerCaseLet);
   };
   if (confirmUpper) {
-    customArray = customArray.concat(upperCaseLet);
+    chosenCharTypes = chosenCharTypes.concat(upperCaseLet);
   };
   if (confirmNum) {
-    customArray = customArray.concat(num);
+    chosenCharTypes = chosenCharTypes.concat(num);
   };
   if (confirmSpecial) {
-    customArray = customArray.concat(specialChar);
+    chosenCharTypes = chosenCharTypes.concat(specialChar);
   };
 
   // Iterating through the customArray via the randomValue function, storing one random value per loop into the new customPassword array
   for (i = 0; i < passwordLength; i++) {
-    customPassword.push(randomValue(customArray));
+    customPassword.push(randomValue(chosenCharTypes));
   };
 
   // Returning the customPassword array as an unspaced string
@@ -64,6 +66,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+  var password = null;
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
