@@ -1,8 +1,5 @@
 // GLOBAL VARIABLES //
-var lowerCaseLet = "abcdefghijklmnopqrstuvwxyz".split("");
-var upperCaseLet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-var num = "123456789".split("");
-var specialChar = "!@#$%^&*()".split("");
+var generateBtn = document.querySelector("#generate");
 
 // function used to randomly select an index from an array
 function randomValue(array) {
@@ -16,6 +13,12 @@ function generatePassword() {
   var chosenCharTypes = [];
   var customPassword = [];
 
+  // Variables of different value types for password
+  var lowerCaseLet = "abcdefghijklmnopqrstuvwxyz".split("");
+  var upperCaseLet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  var num = "123456789".split("");
+  var specialChar = "!@#$%^&*()".split("");
+
   var passwordLength = prompt("How many characters would you like your password to be? \nPlease choose a number between 8 and 128.");
   // Checks for appropriate and stores in passwordLength variable
   if (!passwordLength) {
@@ -28,13 +31,13 @@ function generatePassword() {
     var confirmSpecial = confirm("Should your password have special characters?");
   } else {
     alert("The password length must be a numerical value between 8 and 128.");
-    generatePassword();
+    return generatePassword();
   };
 
   // Reassigning the customArray based on boolean responses from user (I'm not proud of these 5 if statements... there must be a more efficient way.)
   if (!confirmLower && !confirmUpper && !confirmNum && !confirmSpecial) {
     alert("Are you serious? You must choose at least one type of character. Try again.");
-    generatePassword();
+    return generatePassword();
   };
   if (confirmLower) {
     chosenCharTypes = chosenCharTypes.concat(lowerCaseLet);
@@ -59,18 +62,16 @@ function generatePassword() {
 };
 
 
-
-
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
-
 // Write password to the #password input
 function writePassword() {
-  var password = null;
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  if (password == undefined) {
+    passwordText.value = "Your Secure Password";
+  } else {
+    passwordText.value = password
+  }
 };
 
 // Add event listener to generate button
