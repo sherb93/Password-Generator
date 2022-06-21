@@ -15,6 +15,11 @@ function generatePassword() {
   // One for the user's type selections, the other for the randomly selected characters.
   var chosenCharTypes = [];
   var customPassword = [];
+  var passwordLength = null;
+  var confirmLower = null;
+  var confirmUpper = null;
+  var confirmNum = null;
+  var confirmSpecial = null;
 
   var passwordLength = prompt("How many characters would you like your password to be? \nPlease choose a number between 8 and 128.");
   // Checks for appropriate and stores in passwordLength variable
@@ -70,7 +75,11 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  if (password == undefined) {
+    passwordText.value = "Your Secure Password";
+  } else {
+    passwordText.value = password
+  }
 };
 
 // Add event listener to generate button
